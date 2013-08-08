@@ -9,8 +9,11 @@ require 'dm-core'
 require 'dm-migrations'
 
 set :server, 'webrick' 
-set :bind, '10.110.162.177'
+#set :bind, '10.110.162.177'
 set :port, '4567'
+
+enable :sessions
+set :session_secret, "My session secret"
 
 #puts "This is process #{Process.pid}"
 
@@ -32,18 +35,18 @@ DataMapper.finalize
 
 
 get '/' do
+  session[:us_tag] = "DESC"
+  session[:oth_tag] = "DESC"
+  
   @patents = Patent.all
 	erb :index
 end
 
-post '/' do
+post '/search' do
   @emp_id = params[:txt_id]
   @emp_nm = params[:txt_nm]
   @emp_id.strip
   @emp_nm.strip
-  
-  puts @emp_id
-  puts @emp_nm
   
   if @emp_id == "" and @emp_nm == ""
     @patents = Patent.all
@@ -58,17 +61,33 @@ post '/' do
   erb :index
 end
 
-put '/' do
-  puts "#{params[:btn_us]}"
-  @us_tag = "#{ params[:btn_us] }"
-  if @us_tag == "DESC"
+post '/' do
+  us_tag = session[:us_tag]
+  puts us_tag
+  
+  if us_tag == "DESC"
     @patents = Patent.all(:order => [:total_us.desc])
-    @us_tag = "ASC"
-  else
+    session[:us_tag] = "ASC"
+  elsif us_tag == "ASC"
     @patents = Patent.all(:order => [:total_us.asc])
-    @us_tag = "DESC"
+    session[:us_tag] = "DESC"
   end
-    
+  
+  erb :index
+end
+
+post '/index' do
+  oth_tag = session[:oth_tag]
+  puts oth_tag
+  
+  if oth_tag == "DESC"
+    @patents = Patent.all(:order => [:total_others.desc])
+    session[:oth_tag] = "ASC"
+  elsif oth_tag == "ASC"
+    @patents = Patent.all(:order => [:total_others.asc])
+    session[:oth_tag] = "DESC"
+  end
+  
   erb :index
 end
 

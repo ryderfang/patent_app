@@ -13,11 +13,17 @@
     */
     $(function() {
         $("#btn").click(function() {
-            $('#form1').attr("action", "/");
+            $('#form1').attr("action", "/search");
             $('#form1').submit();
         });
         
         $("#btn_us").click(function() {
+            $('#form2').attr("action", "/");
+            $('#form2').submit();
+        });
+        
+        $("#btn_oth").click(function() {
+            $('#form2').attr("action", "/index");
             $('#form2').submit();
         });
     })

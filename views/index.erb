@@ -1,21 +1,22 @@
 <p>
 <form id="form2" action="/" method="POST">
-    <input type="hidden" name="_method" value="PUT" />
     <table align="center" width="70%" border="1" cellpadding="0" cellspacing="0">
-        <col style="width:25%"></col>
-        <col style="width:25%"></col>
-        <col style="width:25%"></col>
-        <col style="width:25%"></col>
+        <col style="width:20%"></col>
+        <col style="width:20%"></col>
+        <col style="width:28%"></col>
+        <col style="width:32%"></col>
         <tr>
             <th>Employee ID</th>
             <th>Employee Name</th>
             <th>
                 Total patents in US&nbsp;&nbsp;
-                <input id="btn_us" name="btn_us" style="width:50px" type="button" value="DESC" />    
+                <input type="hidden" name="us_tag" value="<%= session[:us_tag] %>">
+                <input id="btn_us" style="width:50px" type="button" value="<%= session[:us_tag] %>" />    
             </th>
             <th>
                 Total Patents in others&nbsp;&nbsp;
-                <input id="btn_oth" name="btn_oth" style="width:50px" type="button" value="DESC" />
+                <input type="hidden" name="oth_tag" value="<%= session[:oth_tag] %>">
+                <input id="btn_oth" style="width:50px" type="button" value="<%= session[:oth_tag] %>" />
             </th>
         </tr>
         <% @patents.each do |patent| %>
