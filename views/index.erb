@@ -1,28 +1,30 @@
-<center><h3>Search</h3></center>
-<form action="/" method="post">
-    <center>
-	<table width="60%" border="0" cellpadding="0" cellspacing="1">
-        <col width="15%" />
-        <col width="70%" />
-        <col width="15%" />
+<p>
+<form id="form2" action="/" method="POST">
+    <input type="hidden" name="_method" value="PUT" />
+    <table align="center" width="70%" border="1" cellpadding="0" cellspacing="0">
+        <col style="width:25%"></col>
+        <col style="width:25%"></col>
+        <col style="width:25%"></col>
+        <col style="width:25%"></col>
         <tr>
-            <td>Employee ID</td>
-            <td>
-                <input type="text" style="width:90%" value="001" />
-            </td>
-            <td>
-                <button type="submit">search</button>
-            </td>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>
+                Total patents in US&nbsp;&nbsp;
+                <input id="btn_us" name="btn_us" style="width:50px" type="button" value="DESC" />    
+            </th>
+            <th>
+                Total Patents in others&nbsp;&nbsp;
+                <input id="btn_oth" name="btn_oth" style="width:50px" type="button" value="DESC" />
+            </th>
         </tr>
+        <% @patents.each do |patent| %>
         <tr>
-            <td>Employee Name</td>
-            <td>
-                <input type="text" style="width:90%" value="Alan" />
-            </td>
-            <td>
-                <button type="submit">search</button>
-            </td>
+            <td><%= patent.employee_id %></td>
+            <td><%= patent.employee_name %></td>
+            <td><%= patent.total_us %></td>
+            <td><%= patent.total_others %></td>
         </tr>
+        <% end %>
     </table>
-    </center>
 </form>

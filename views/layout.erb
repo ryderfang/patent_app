@@ -1,10 +1,47 @@
+<% title="Patent Historical Data" %>
+<!doctype html>
 <html>
 <head>
-    <title>Patent Historical Data</title>
+    <title><%= title %></title>
+    <meta charset="utf8">
+    <script type="text/javascript" src="jquery-latest.js"></script>
+    <script type="text/javascript">
+    /*
+        window.onload = function() {
+            alert( "welcome" );
+        }
+    */
+    $(function() {
+        $("#btn").click(function() {
+            $('#form1').attr("action", "/");
+            $('#form1').submit();
+        });
+        
+        $("#btn_us").click(function() {
+            $('#form2').submit();
+        });
+    })
+    </script>
 </head>
 <body>
-    <p>
-        <center><h1>Patent Historical Data</h1></center>
+    <center><h1><%= title %></h1>
+    <form id="form1" action="" method="POST">
+        <table style="text-align:center" width="70%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>Employee ID</td>
+                <td width="25%">
+                    <input type="text" name="txt_id" style="width:90%" value="<%= @emp_id %>" />
+                </td>
+                <td>Employee Name</td>
+                <td width="25%">
+                    <input type="text" name="txt_nm" style="width:90%" value="<%= @emp_nm %>" />
+                </td>
+                <td>
+                    <input id="btn" type="button" value="search" />
+                </td>
+            </tr>
+        </table>
+    </form>
     <%= yield %>
 <body>
 </html>
