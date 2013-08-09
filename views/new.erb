@@ -1,0 +1,14 @@
+<% title="Patent Historical Data" %>
+<!doctype html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf8">
+</head>
+<body>
+    <h1>Add a new patent</h1>
+    <form action="/new" method="POST">
+        <%= erb :data_form %>
+    </form>
+</body>
+</html>

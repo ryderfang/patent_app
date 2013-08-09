@@ -1,0 +1,21 @@
+<% title="Patent Historical Data" %>
+<!doctype html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf8">
+    <script type="text/javascript" src="/jquery-latest.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('#emp_id').attr("disabled", "disabled");
+    });
+    </script>
+</head>
+<body>
+    <h1>Edit this patent</h1>
+    <form method="POST" action="/patent/<%=  @patent.employee_id %>">
+        <input type="hidden" name="_method" value="PUT" />
+        <%= erb :data_form %>
+    </form>
+</body>
+</html>

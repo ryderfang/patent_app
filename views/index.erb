@@ -10,22 +10,30 @@
             <th>Employee Name</th>
             <th>
                 Total patents in US&nbsp;&nbsp;
-                <input type="hidden" name="us_tag" value="<%= session[:us_tag] %>">
                 <input id="btn_us" style="width:50px" type="button" value="<%= session[:us_tag] %>" />    
             </th>
             <th>
                 Total Patents in others&nbsp;&nbsp;
-                <input type="hidden" name="oth_tag" value="<%= session[:oth_tag] %>">
                 <input id="btn_oth" style="width:50px" type="button" value="<%= session[:oth_tag] %>" />
             </th>
         </tr>
-        <% @patents.each do |patent| %>
-        <tr>
-            <td><%= patent.employee_id %></td>
-            <td><%= patent.employee_name %></td>
-            <td><%= patent.total_us %></td>
-            <td><%= patent.total_others %></td>
-        </tr>
+        <% if @patents.any? %>
+            <% @patents.each do |patent| %>
+            <tr>
+                <td><a href="/patent/<%= patent.employee_id %>"><%= patent.employee_id %></a></td>
+                <td><%= patent.employee_name %></td>
+                <td><%= patent.total_us %></td>
+                <td><%= patent.total_others %></td>
+            </tr>
+            <% end %>
+        <% else %>
+            <tr>
+                <td colspan="4" align="center">
+                    <label style="color:red">No results found.</label>
+                </td>
+            </tr>
         <% end %>
     </table>
+    <p>
+        <a href="/new">Add a new patent</a>
 </form>

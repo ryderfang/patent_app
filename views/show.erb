@@ -1,0 +1,25 @@
+<% title="Patent Historical Data" %>
+<!doctype html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf8">
+</head>
+<body>
+    <p>Employee ID:
+        <%= @patent.employee_id %>
+    <p>Employee Name:
+        <%= @patent.employee_name %>
+    <p>Total patents in US:
+        <%= @patent.total_us %>
+    <p>Total patents in other countries:
+        <%= @patent.total_others %>
+    <p> <a href="/">Back to Index</a>
+    <p> <a href="/patent/<%= @patent.employee_id %>/edit">Edit this patent</a>
+    <form action="/patent/<%= @patent.employee_id %>" method='POST'>
+        <input type="hidden" name="_method" value="DELETE" />
+        <input type="submit" value="DELETE this patent" />
+</form>
+</form>
+</body>
+</html>

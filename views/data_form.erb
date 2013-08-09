@@ -1,0 +1,14 @@
+<label for="emp_id">Employee ID:</label>
+<input id="emp_id" type="text" name="patent[employee_id]" value="<%= @patent.employee_id %>" />
+<p>
+<label for="emp_name">Employee Name:</label>
+<input id="emp_name" type="text" name="patent[employee_name]" value="<%= @patent.employee_name %>" />
+<p>
+<label for="tot_us">Total patents in US:</label>
+<input id="tot_us" type="number" name="patent[total_us]" value ="<%= \
+    @patent.total_us %>" />
+<p>
+<label for="tot_oth">Total patents in other countries:</label>
+<input id="tot_oth" type="number" name="patent[total_others]" value="<%= @patent.total_others %>" />
+<p>
+<input type="submit" value="Save Patent" />

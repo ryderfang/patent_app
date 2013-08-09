@@ -1,15 +1,14 @@
-# myapp.rb
+# main.rb
 require 'rubygems'
 require 'sinatra'
 require 'rack'
 require 'sinatra/reloader' if development? # gem install sinatra-reloader
 require 'haml' # gem install haml
-require 'sinatra/activerecord'
 require 'dm-core'
 require 'dm-migrations'
 
 set :server, 'webrick' 
-#set :bind, '10.110.162.177'
+set :bind, '10.110.162.177'
 set :port, '4567'
 
 enable :sessions
@@ -91,11 +90,51 @@ post '/index' do
   erb :index
 end
 
+get '/new' do
+  @patent = Patent.new
+  erb :new, :layout => false
+end
+
+post '/new' do
+  patent = Patent.create(:employee_id => params[:patent][:employee_id], :employee_name => params[:patent][:employee_name], \
+    :total_us => params[:patent][:total_us], :total_others => params[:patent][:total_others])
+  if patent.saved?
+    redirect to('/')
+  else
+    "Insert Data Failed.."
+  end
+end
+
+get '/patent/:id' do
+  @patent = Patent.get(params[:id])
+  erb :show, :layout => false
+end
+
+put '/patent/:id' do
+  patent = Patent.get(params[:id])
+  patent.update(params[:patent])
+  redirect to("/patent/#{ patent.employee_id }")
+end
+
+delete '/patent/:id' do
+  Patent.get(params[:id]).destroy
+  redirect to('/')
+end
+
+get '/patent/:id/edit' do
+  @patent = Patent.get(params[:id])
+  erb :edit, :layout =>false
+end
+
 get '/ip' do
     "Your IP address is #{ @env['REMOTE_ADDR'] } "
 end
 
 not_found do
   status 404
-  "sorry, page not found -- by rfang@vmware.com"
+  "sorry, page not found :( -- by rfang(at)vmware.com"
+end
+
+get '/about' do
+  haml :about
 end
