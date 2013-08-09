@@ -34,6 +34,10 @@
             </tr>
         <% end %>
     </table>
-    <p>
-        <a href="/new">Add a new patent</a>
 </form>
+<p>
+    <a href="/new">Add a new patent</a>
+<p>
+    <form action="/download/temp" method="POST">
+        <input type="submit" value="Export to csv" />
+    </form>

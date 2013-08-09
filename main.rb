@@ -4,6 +4,7 @@ require 'sinatra'
 require 'rack'
 require 'sinatra/reloader' if development? # gem install sinatra-reloader
 require 'haml' # gem install haml
+require 'csv'
 require 'dm-core'
 require 'dm-migrations'
 
@@ -62,7 +63,6 @@ end
 
 post '/' do
   us_tag = session[:us_tag]
-  puts us_tag
   
   if us_tag == "DESC"
     @patents = Patent.all(:order => [:total_us.desc])
@@ -77,7 +77,6 @@ end
 
 post '/index' do
   oth_tag = session[:oth_tag]
-  puts oth_tag
   
   if oth_tag == "DESC"
     @patents = Patent.all(:order => [:total_others.desc])
@@ -124,6 +123,11 @@ end
 get '/patent/:id/edit' do
   @patent = Patent.get(params[:id])
   erb :edit, :layout =>false
+end
+
+post '/download/:filename' do |filename|
+  puts "hahaaa"
+  send_file "./files/#{ filename }", :filename => filename, :type => 'Application/octet-stream'
 end
 
 get '/ip' do
