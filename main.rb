@@ -9,8 +9,9 @@ require 'dm-core'
 require 'dm-migrations'
 
 set :server, 'webrick' 
-set :bind, '10.110.162.177'
+#set :bind, '10.110.162.177'
 set :port, '4567'
+set :root, File.dirname(__FILE__)
 
 enable :sessions
 set :session_secret, "My session secret"
@@ -126,8 +127,29 @@ get '/patent/:id/edit' do
 end
 
 post '/download/:filename' do |filename|
-  puts "hahaaa"
-  send_file "./files/#{ filename }", :filename => filename, :type => 'Application/octet-stream'
+=begin
+  CSV.foreach("./download/#{filename}.csv", :headers => true) do |row|
+    print "Name: #{row['employee_id']} "
+    print "Language: #{row['employee_name']} "
+    print "URL: #{row['total_us']} "
+    print "Total Number of Forks: #{row['total_others']}"
+    puts
+  end
+=end
+
+=begin
+
+=end
+  @patents = Patent.all
+  CSV.open("./download/#{filename}.csv", "wb", :headers => true) do |csv|
+    csv << ["employee_id", "employee_name", "total_us", "total_other"]
+    @patents.each do |patent|
+      csv << ["#{patent.employee_id}.to_s", "#{patent.employee_name}", \
+        "#{patent.total_us}", "#{patent.total_others}"]
+    end
+  end
+
+  send_file "./download/#{filename}.csv", :filename => filename + ".csv", :type => 'Application/octet-stream'
 end
 
 get '/ip' do

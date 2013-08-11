@@ -1,0 +1,6 @@
+employee_id,employee_name,total_us,total_other
+001.to_s,Alan,0,3
+002.to_s,Bob,1,10
+003.to_s,Carrio,10,0
+004.to_s,Daniel,133,22
+005.to_s,Alan,114,2
