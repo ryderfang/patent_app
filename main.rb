@@ -28,6 +28,7 @@ class Patent
   
   property :employee_id, String, :key => true
   property :employee_name, String
+  property :bu, String
   property :total_us, Integer
   property :total_others, Integer
 end
@@ -49,6 +50,9 @@ post '/search' do
   @emp_id.strip
   @emp_nm.strip
   
+  @sel_bu = params[:sel_bu]
+  
+=begin
   if @emp_id == "" and @emp_nm == ""
     @patents = Patent.all
   elsif @emp_id != "" and @emp_nm == ""
@@ -58,7 +62,17 @@ post '/search' do
   else
     @patents = Patent.all(:employee_id => @emp_id, :employee_name => @emp_nm)
   end
-    
+=end
+
+  cond = Hash.new
+  cond[:employee_id] = @emp_id if @emp_id != ""
+  cond[:employee_name] = @emp_nm if @emp_nm != ""
+  cond[:bu] = @sel_bu if @sel_bu != ""
+  
+  #puts cond
+  
+  @patents = Patent.all(cond)
+  
   erb :index
 end
 
@@ -96,8 +110,9 @@ get '/new' do
 end
 
 post '/new' do
-  patent = Patent.create(:employee_id => params[:patent][:employee_id], :employee_name => params[:patent][:employee_name], \
-    :total_us => params[:patent][:total_us], :total_others => params[:patent][:total_others])
+  #patent = Patent.create(:employee_id => params[:patent][:employee_id], :employee_name => params[:patent][:employee_name], \
+    #:total_us => params[:patent][:total_us], :total_others => params[:patent][:total_others])
+  patent = Patent.create(params[:patent])
   if patent.saved?
     redirect to('/')
   else
@@ -139,10 +154,10 @@ post '/download/:filename' do |filename|
 
   @patents = Patent.all
   CSV.open("./download/#{filename}.csv", "wb", :headers => true) do |csv|
-    csv << ["employee_id", "employee_name", "total_us", "total_other"]
+    csv << ["employee_id", "employee_name", "bu", "total_us", "total_other"]
     @patents.each do |patent|
       csv << ["#{patent.employee_id}", "#{patent.employee_name}", \
-        "#{patent.total_us}", "#{patent.total_others}"]
+        "#{patent.bu}", "#{patent.total_us}", "#{patent.total_others}"]
     end
   end
 
@@ -151,6 +166,24 @@ end
 
 get '/ip' do
     "Your IP address is #{ @env['REMOTE_ADDR'] } "
+end
+
+get '/upload' do
+  erb :upload, :layout => false
+end
+
+post '/upload' do
+  unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
+    return erb(:upload)
+  end
+  
+  #File.open('public/' + params[:file][:filename], "w") do |f|
+    #f.write(params[:file][:tempfile].read)
+  #end
+  while blk = tmpfile.read(65536)
+    File.open("public/#{name}", "wb") { |f| f.write(blk) }
+  end
+  'success'
 end
 
 not_found do

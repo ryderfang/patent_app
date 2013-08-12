@@ -13,6 +13,8 @@
     */
     
     $(function() {
+        //alert(<%= @emp_id %>);
+        
         $("#btn").click(function() {
             $('#form1').attr("action", "/search");
             $('#form1').submit();
@@ -33,17 +35,25 @@
 <body>
     <center><h1><%= title %></h1>
     <form id="form1" action="/search" method="POST">
-        <table style="text-align:center" width="70%" border="0" cellpadding="0" cellspacing="0">
+        <table style="text-align:center" width="80%" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td>Employee ID</td>
-                <td width="25%">
-                    <input type="text" name="txt_id" style="width:90%" value="<%= @emp_id %>" />
+                <td width="30%">
+                    <label for="txt_id">Employee ID:</label>
+                    <input type="text" name="txt_id" style="width:60%" value="<%= @emp_id %>" />
                 </td>
-                <td>Employee Name</td>
-                <td width="25%">
-                    <input type="text" name="txt_nm" style="width:90%" value="<%= @emp_nm %>" />
+                <td width="30%">
+                    <label for="txt_nm">Employee Name:</label>
+                    <input type="text" name="txt_nm" style="width:60%" value="<%= @emp_nm %>" />
                 </td>
-                <td>
+                <td width="20%">
+                    <label for="sel_bu">BU:</label>
+                    <select name="sel_bu" style="width:80%">
+                    <% ["", "EUC", "NSBU", "Platform", "Product Engineering", "SAS"].each do |bu| %>
+                        <option <%= 'selected="selected"' if bu == @sel_bu%> value="<%= bu %>"><%= bu %></option>
+                    <% end %>
+                    </select>
+                </td>
+                <td style="text-align:center;">
                     <button id="btn" type="submit">Search</button>
                 </td>
             </tr>

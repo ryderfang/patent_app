@@ -1,8 +1,16 @@
-<label for="emp_id">Employee ID:</label>
-<input id="emp_id" type="text" name="patent[employee_id]" value="<%= @patent.employee_id %>" />
 <p>
-<label for="emp_name">Employee Name:</label>
-<input id="emp_name" type="text" name="patent[employee_name]" value="<%= @patent.employee_name %>" />
+    <label for="emp_id">Employee ID:</label>
+    <input id="emp_id" type="text" name="patent[employee_id]" value="<%= @patent.employee_id %>" />
+<p>
+    <label for="emp_name">Employee Name:</label>
+    <input id="emp_name" type="text" name="patent[employee_name]" value="<%= @patent.employee_name %>" />
+<p>
+    <label for="sel_bu">BU:</label>
+    <select id="sel_bu" name="patent[bu]">
+        <% ["EUC", "NSBU", "Platform", "Product Engineering", "SAS"].each do |bu| %>
+            <option <%= 'selected="selected"' if bu == @patent.bu %> value="<%= bu %>"><%= bu %></option>
+        <% end %>
+    </select>
 <p>
 <label for="tot_us">Total patents in US:</label>
 <input id="tot_us" type="number" name="patent[total_us]" value ="<%= \

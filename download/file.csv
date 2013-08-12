@@ -1,6 +1,7 @@
-employee_id,employee_name,total_us,total_other
-001,Alan,23,111
-002,Bob,3,4
-003,Carrio,11,0
-004,Daniel,22,11
-005,Alan,15,44
+employee_id,employee_name,bu,total_us,total_other
+001,Alan,EUC,23,111
+002,Bob,NSBU,4,4
+003,Carrio,Platform,11,0
+004,Daniel,Product Engineering,22,11
+005,Alan,SAS,15,44
+006,Emma,Platform,33,6

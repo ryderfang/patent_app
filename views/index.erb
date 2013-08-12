@@ -1,13 +1,15 @@
 <p>
 <form id="form2" action="/" method="POST">
-    <table align="center" width="70%" border="1" cellpadding="0" cellspacing="0">
-        <col style="width:20%"></col>
-        <col style="width:20%"></col>
-        <col style="width:28%"></col>
-        <col style="width:32%"></col>
+    <table align="center" width="80%" border="1" cellpadding="0" cellspacing="0">
+        <col style="width:15%"></col>
+        <col style="width:15%"></col>
+        <col style="width:20"></col>
+        <col style="width:25%"></col>
+        <col style="width:25%"></col>
         <tr>
             <th>Employee ID</th>
             <th>Employee Name</th>
+            <th>BU</th>
             <th>
                 Total patents in US&nbsp;&nbsp;
                 <input id="btn_us" style="width:50px" type="button" value="<%= session[:us_tag] %>" />    
@@ -22,6 +24,7 @@
             <tr>
                 <td><a href="/patent/<%= patent.employee_id %>"><%= patent.employee_id %></a></td>
                 <td><%= patent.employee_name %></td>
+                <td><%= patent.bu %></td>
                 <td><%= patent.total_us %></td>
                 <td><%= patent.total_others %></td>
             </tr>
@@ -36,7 +39,7 @@
     </table>
 </form>
 <p>
-    <a href="/new">Add a new patent</a>
+    <a href="/new">Add a new record</a>
 <p>
     <form action="/download/file" method="POST">
         <input type="submit" value="Export to csv" />
