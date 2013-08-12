@@ -9,7 +9,7 @@ require 'dm-core'
 require 'dm-migrations'
 
 set :server, 'webrick' 
-#set :bind, '10.110.162.177'
+set :bind, '10.110.162.177'
 set :port, '4567'
 set :root, File.dirname(__FILE__)
 
@@ -137,14 +137,11 @@ post '/download/:filename' do |filename|
   end
 =end
 
-=begin
-
-=end
   @patents = Patent.all
   CSV.open("./download/#{filename}.csv", "wb", :headers => true) do |csv|
     csv << ["employee_id", "employee_name", "total_us", "total_other"]
     @patents.each do |patent|
-      csv << ["#{patent.employee_id}.to_s", "#{patent.employee_name}", \
+      csv << ["#{patent.employee_id}", "#{patent.employee_name}", \
         "#{patent.total_us}", "#{patent.total_others}"]
     end
   end
