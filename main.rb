@@ -7,6 +7,7 @@ require 'haml' # gem install haml
 require 'csv'
 require 'dm-core'
 require 'dm-migrations'
+require 'net/ldap'
 
 set :server, 'webrick' 
 set :bind, '10.110.162.177'
@@ -164,6 +165,20 @@ post '/download/:filename' do |filename|
   send_file "./download/#{filename}.csv", :filename => filename + ".csv", :type => 'Application/octet-stream'
 end
 
+get '/ldap' do
+  ldap = Net::LDAP.new
+  ldap.host = 'ldap1-pek2.eng.vmware.com'
+  ldap.port = 389
+  #ldap.auth "rfang@vmware.com", "***"
+  puts ldap.bind
+  if ldap.bind
+    'success'
+  else
+    'failed'
+  end
+end
+
+
 get '/ip' do
     "Your IP address is #{ @env['REMOTE_ADDR'] } "
 end
@@ -173,17 +188,42 @@ get '/upload' do
 end
 
 post '/upload' do
+=begin
   unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
     return erb(:upload)
   end
-  
-  #File.open('public/' + params[:file][:filename], "w") do |f|
-    #f.write(params[:file][:tempfile].read)
-  #end
   while blk = tmpfile.read(65536)
     File.open("public/#{name}", "wb") { |f| f.write(blk) }
   end
   'success'
+=end  
+  unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
+    @lbl_csv = "Import failed."
+    @patents = Patent.all
+    return erb(:index)
+  end
+  
+  
+  
+  while blk = tmpfile.read(65536)
+    File.open("upload/#{name}", "wb") { |f| f.write(blk) }
+  end
+  
+  patent = Hash.new
+  
+  CSV.foreach("./upload/#{name}", :headers => true) do |row|
+    patent[:employee_id] = row[0]
+    patent[:employee_name] = row[1]
+    patent[:bu] = row[2]
+    patent[:total_us] = row[3]
+    patent[:total_others] = row[4]
+    
+    puts patent
+    
+    Patent.first_or_create({:employee_id => row[0]}, {:employee_name => row[1], :bu => row[2], \
+      :total_us => row[3], :total_others => row[4]}).update(patent)
+  end
+  redirect to("/")
 end
 
 not_found do
