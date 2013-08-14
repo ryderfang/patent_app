@@ -4,6 +4,17 @@
 <head>
     <title><%= title %></title>
     <meta charset="utf8">
+    <script type="text/javascript" src="/jquery-latest.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $("#btn_del").click(function() {
+            var chk = confirm("Sure to delete?", function() {}, null);
+            if (chk) {
+                $('#frm_del').submit();                
+            }
+        });
+    });
+    </script>
 </head>
 <body>
     <p>Employee ID:
@@ -18,10 +29,9 @@
         <%= @patent.total_others %>
     <p> <a href="/">Back to Index</a>
     <p> <a href="/patent/<%= @patent.employee_id %>/edit">Edit this patent</a>
-    <form action="/patent/<%= @patent.employee_id %>" method='POST'>
+    <form id="frm_del" action="/patent/<%= @patent.employee_id %>" method='POST'>
         <input type="hidden" name="_method" value="DELETE" />
-        <input type="submit" value="DELETE this patent" />
-</form>
-</form>
+        <input type="button" id="btn_del" value="DELETE this patent" />
+    </form>
 </body>
 </html>

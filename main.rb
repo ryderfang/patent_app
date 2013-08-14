@@ -9,6 +9,8 @@ require 'dm-core'
 require 'dm-migrations'
 require 'net/ldap'
 
+require './csv.rb'
+
 set :server, 'webrick' 
 set :bind, '10.110.162.177'
 set :port, '4567'
@@ -142,29 +144,6 @@ get '/patent/:id/edit' do
   erb :edit, :layout =>false
 end
 
-post '/download/:filename' do |filename|
-=begin
-  CSV.foreach("./download/#{filename}.csv", :headers => true) do |row|
-    print "Name: #{row['employee_id']} "
-    print "Language: #{row['employee_name']} "
-    print "URL: #{row['total_us']} "
-    print "Total Number of Forks: #{row['total_others']}"
-    puts
-  end
-=end
-
-  @patents = Patent.all
-  CSV.open("./download/#{filename}.csv", "wb", :headers => true) do |csv|
-    csv << ["employee_id", "employee_name", "bu", "total_us", "total_other"]
-    @patents.each do |patent|
-      csv << ["#{patent.employee_id}", "#{patent.employee_name}", \
-        "#{patent.bu}", "#{patent.total_us}", "#{patent.total_others}"]
-    end
-  end
-
-  send_file "./download/#{filename}.csv", :filename => filename + ".csv", :type => 'Application/octet-stream'
-end
-
 get '/ldap' do
   ldap = Net::LDAP.new
   ldap.host = 'ldap1-pek2.eng.vmware.com'
@@ -181,49 +160,6 @@ end
 
 get '/ip' do
     "Your IP address is #{ @env['REMOTE_ADDR'] } "
-end
-
-get '/upload' do
-  erb :upload, :layout => false
-end
-
-post '/upload' do
-=begin
-  unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
-    return erb(:upload)
-  end
-  while blk = tmpfile.read(65536)
-    File.open("public/#{name}", "wb") { |f| f.write(blk) }
-  end
-  'success'
-=end  
-  unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
-    @lbl_csv = "Import failed."
-    @patents = Patent.all
-    return erb(:index)
-  end
-  
-  
-  
-  while blk = tmpfile.read(65536)
-    File.open("upload/#{name}", "wb") { |f| f.write(blk) }
-  end
-  
-  patent = Hash.new
-  
-  CSV.foreach("./upload/#{name}", :headers => true) do |row|
-    patent[:employee_id] = row[0]
-    patent[:employee_name] = row[1]
-    patent[:bu] = row[2]
-    patent[:total_us] = row[3]
-    patent[:total_others] = row[4]
-    
-    puts patent
-    
-    Patent.first_or_create({:employee_id => row[0]}, {:employee_name => row[1], :bu => row[2], \
-      :total_us => row[3], :total_others => row[4]}).update(patent)
-  end
-  redirect to("/")
 end
 
 not_found do
