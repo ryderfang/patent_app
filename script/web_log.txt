@@ -1,3 +1,1 @@
-employee_id:001, employee_name:Alan, bu:EUC, total_us:23a[Not Integer!], Failed.
-Line length:6, [Length incorrect!], Failed.
-employee_id:009, employee_name:Helen, bu:TEST[Incorrect BU!], Failed.
+employee_id:10, employee_name:Jack, bu:NSBU, total_us:2, total_others:7, Success!

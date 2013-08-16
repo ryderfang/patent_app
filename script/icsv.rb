@@ -36,12 +36,6 @@ unless File.extname(csv_file) == ".csv"
 end
 
 CSV.foreach(csv_file, :headers => true) do |row|
-  p row
-  p row[0]
-  p row['employee_id']
-  p row[:employee_id]
-  
-  
   if row.length != 5
     im_log.print("Line length:#{row.length}, [Length incorrect!], Failed.\n")
     next
@@ -108,3 +102,5 @@ CSV.foreach(csv_file, :headers => true) do |row|
   
   im_log.print("Success!\n")
 end
+
+im_log.close

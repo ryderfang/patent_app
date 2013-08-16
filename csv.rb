@@ -34,7 +34,7 @@ post '/upload' do
     File.open("public/#{name}", "wb") { |f| f.write(blk) }
   end
   'success'
-=end  
+=end
   unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
     @lbl_csv = "File not exist."
     @patents = Patent.all
@@ -48,15 +48,15 @@ post '/upload' do
   end
   
   while blk = tmpfile.read(65536)
-    File.open("upload/up_file.csv", "wb") { |f| f.write(blk) }
+    File.open("./upload/up_file.csv", "wb") { |f| f.write(blk) }
   end
   
   patent = Hash.new
   
-  im_log = File.open("script/web_log.txt", "w+")
+  im_log = File.open("./script/web_log.txt", "wb")
   
-  CSV.foreach("upload/up_file.csv", :headers => true) do |row|
-    puts row.length
+  CSV.foreach("./upload/up_file.csv", :headers => true) do |row|
+    p row
     if row.length != 5
       im_log.print("Line length:#{row.length}, [Length incorrect!], Failed.\n")
       next
@@ -122,6 +122,8 @@ post '/upload' do
       
     im_log.print("Success!\n")    
   end
+  
+  im_log.close
 
   redirect to("/")
 end
