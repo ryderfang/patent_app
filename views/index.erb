@@ -1,25 +1,17 @@
 <p>
 <form id="form2" action="/" method="POST">
-    <table align="center" width="80%" border="1" cellpadding="0" cellspacing="0">
-        <col style="width:15%"></col>
-        <col style="width:15%"></col>
-        <col style="width:20"></col>
-        <col style="width:25%"></col>
-        <col style="width:25%"></col>
-        <tr>
-            <th>Employee ID</th>
-            <th>Employee Name</th>
-            <th>BU</th>
-            <th>
-                Total patents in US&nbsp;&nbsp;
-                <input id="btn_us" style="width:50px" type="button" value="<%= session[:us_tag] %>" />    
-            </th>
-            <th>
-                Total Patents in others&nbsp;&nbsp;
-                <input id="btn_oth" style="width:50px" type="button" value="<%= session[:oth_tag] %>" />
-            </th>
-        </tr>
-        <% if @patents.any? %>
+    <table id="tbl_data" class="tablesorter" align="center" border="1" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th style="width:150px">Employee ID</th>
+                <th>Employee Name</th>
+                <th>BU</th>
+                <th>US's patents in Total</th>
+                <th>Other Patents in Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if @patents.any? %>
             <% @patents.each do |patent| %>
             <tr>
                 <td><a href="/patent/<%= patent.employee_id %>"><%= patent.employee_id %></a></td>
@@ -29,26 +21,13 @@
                 <td><%= patent.total_others %></td>
             </tr>
             <% end %>
-        <% else %>
-            <tr>
-                <td colspan="4" align="center">
-                    <label style="color:red">No results found.</label>
-                </td>
-            </tr>
-        <% end %>
+            <% else %>
+                <tr>
+                    <td colspan="5" align="center">
+                        <label style="color:red">No results found.</label>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
     </table>
 </form>
-<p>
-    <a href="/new">Add a new record</a>
-
-<p>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" />
-        <input type="submit" value="Import from CSV" />
-        <label style="color:red;"><%= @lbl_csv %></label>
-    </form>
-
-<p>
-    <form action="/download/out_file" method="POST">
-        <input type="submit" value="Export to CSV" />
-    </form>

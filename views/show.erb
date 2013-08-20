@@ -27,11 +27,17 @@
         <%= @patent.total_us %>
     <p>Total patents in other countries:
         <%= @patent.total_others %>
-    <p> <a href="/">Back to Index</a>
-    <p> <a href="/patent/<%= @patent.employee_id %>/edit">Edit this patent</a>
+    <p> 
+        <a href="/patent/<%= @patent.employee_id %>/edit">Edit this record</a>
+    <p> 
+        <a href="/new">Add a new record</a>
+
     <form id="frm_del" action="/patent/<%= @patent.employee_id %>" method='POST'>
         <input type="hidden" name="_method" value="DELETE" />
-        <input type="button" id="btn_del" value="DELETE this patent" />
+        <input type="button" id="btn_del" value="Delete this record" />
     </form>
+    
+    <p> 
+        <a href="/">Back to Index</a>
 </body>
 </html>

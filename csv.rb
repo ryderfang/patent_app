@@ -21,10 +21,6 @@ post '/download/:filename' do |filename|
   send_file "./download/#{filename}.csv", :filename => filename + ".csv", :type => 'Application/octet-stream'
 end
 
-get '/upload' do
-  erb :upload, :layout => false
-end
-
 post '/upload' do
 =begin
   unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
@@ -35,16 +31,21 @@ post '/upload' do
   end
   'success'
 =end
+
+  im_log = File.open("./public/web_log.txt", "wb")
+
   unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
     @lbl_csv = "File not exist."
-    @patents = Patent.all
-    return erb(:index)
+    im_log.print(@lbl_csv)
+    im_log.close
+    return erb(:csv, :layout => false)
   end
   
   unless File.extname(name) == ".csv"
     @lbl_csv = "It's not a csv file."
-    @patents = Patent.all
-    return erb(:index)
+    im_log.print(@lbl_csv)
+    im_log.close
+    return erb(:csv, :layout => false)
   end
   
   while blk = tmpfile.read(65536)
@@ -53,10 +54,8 @@ post '/upload' do
   
   patent = Hash.new
   
-  im_log = File.open("./script/web_log.txt", "wb")
-  
   CSV.foreach("./upload/up_file.csv", :headers => true) do |row|
-    p row
+    #p row
     if row.length != 5
       im_log.print("Line length:#{row.length}, [Length incorrect!], Failed.\n")
       next
@@ -125,5 +124,7 @@ post '/upload' do
   
   im_log.close
 
-  redirect to("/")
+  @lbl_csv = "Import is complete."
+
+  return erb(:csv, :layout => false)
 end
