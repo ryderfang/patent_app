@@ -1,2 +1,3 @@
 require './myapp'
-require 'sinatra/activerecord/rake'
+
+run Sinatra::Application
