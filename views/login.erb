@@ -1,0 +1,72 @@
+<% title="Patent Historical Data" %>
+<!doctype html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf8">
+    <style type="text/css">
+    	body {
+		    background-color: white;
+		    font-family: verdana, arial, sans-serif;
+		    font-size: small;
+		    margin: 0;
+		    min-width: 980px;
+		}
+    	.base-header {
+		    background-image: url(../img/source_header.gif);
+		    height: 1.2em;
+		    border-bottom: 1px solid #333;
+		    margin: 0 0 10px;
+		}
+    	.fancy-caption {
+    		background-color: #c6dcf3;
+		    border: 1px #3465a4 solid;
+		    color: #333;
+		    font-size: small;
+		    font-weight: bold;
+		    text-align: center;
+		    margin: 0 auto 0 auto;
+		    padding: 0.3em;
+		}
+		.base-footer {
+    		font-size: x-small;
+		    border-top: 1px solid #888;
+		    margin: 1em auto 0 auto;
+		    padding: 1em;
+		    text-align: center;
+		}
+		</style>
+</head>
+<body>
+	<div class="base-header">
+	</div>
+    <form id="login-form" method="post" action="/login">
+		<table align="center" cellspacing="3">
+			<caption class="fancy-caption">Login</caption>
+			<tr>
+			  <td><label for="username">Username</label>:</td>
+			  <td><input id="username" type="text" name="username" maxlength="30" />@vmware.com</td>
+			</tr>
+
+			<tr>
+			  <td><label for="passwd">Password</label>:</td>
+			  <td>
+			  	<input type="password" name="passwd" id="passwd" />
+			  	<lable style="color:red;"><%= @lbl_pass %></lable>
+			  </td>
+			</tr>
+
+			<tr>
+			  <td colspan="2" align="center"><input type="submit" value="Login" /></td>
+			</tr>
+		</table>
+		<p>
+	</form>
+	<div class="base-footer">
+		<a href="mailto:rfang@vmware.com">Contact Me</a>
+		<br />
+      		&copy; 2013 VMware, Inc.
+	</div>
+</body>
+</html>
+

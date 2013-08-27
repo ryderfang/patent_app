@@ -7,15 +7,18 @@ require 'csv'
 require 'dm-core'
 require 'dm-migrations'
 require 'net/ldap'
+require 'sinatra/flash'
 
 require './csv.rb'
+
+require File.dirname(__FILE__) + '/lib/user_auth'
 
 set :server, 'webrick' 
 set :bind, '10.110.162.177'
 set :port, '4567'
 set :root, File.dirname(__FILE__)
 
-ADMIN_PWD = 'Lovechina!'
+ADMIN_PWD ||= 'Lovechina!'
 
 enable :sessions
 set :session_secret, "My session secret"
@@ -38,6 +41,21 @@ class Patent
 end
 
 DataMapper.finalize
+
+before '/*' do
+    url = params[:splat].first
+    unless url == "login"
+      if !session[:username]
+        session[:request_path] = request.path
+        #flash[:error] = "You are required to log in before you can proceed"
+        redirect '/login'
+      elsif session[:request_path] && session[:username]
+        path = session[:request_path]
+        session[:request_path] = nil
+        redirect path
+      end
+    end
+end
 
 get '/' do
   @patents = Patent.all
@@ -100,20 +118,31 @@ end
 
 get '/patent/:id/edit' do
   @patent = Patent.get(params[:id])
-  erb :edit, :layout =>false
+  erb :edit, :layout => false
 end
 
-get '/ldap' do
-  ldap = Net::LDAP.new
-  ldap.host = 'ldap1-pek2.eng.vmware.com'
-  ldap.port = 389
-  ldap.auth "cn=rfang,dc=vmware,dc=com", "#{ADMIN_PWD}"
-  puts ldap.bind
-  if ldap.bind
-    'success'
+get '/login' do
+  erb :login, :layout => false
+end
+
+post '/login' do
+  user = params[:username]
+  pass = params[:passwd]
+
+  if UserAuth.authenticate(user, pass)
+    session[:username] = user
+    flash[:username] = user
+    redirect '/'
   else
-    'failed'
+    @lbl_pass = "Wrong Pass."
+    return erb(:login, :layout => false)
   end
+end
+
+get '/logout' do
+  session[:username] = nil
+  flash[:username] = nil
+  redirect '/login'
 end
 
 get '/ip' do

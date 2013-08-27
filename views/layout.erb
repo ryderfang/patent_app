@@ -5,6 +5,37 @@
     <title><%= title %></title>
     <meta charset="utf8">
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+    <style type="text/css">
+    body {
+        margin: 0px;
+    }
+    #base-header {
+        margin: 0px;
+        background-image: url(../img/source_header.gif);
+        color: white;
+        font-weight: bold;
+        height: 1.2em;
+    }
+    .div_top {
+        float: right;
+        padding: 0.25em 1em;
+        font-family: verdana, arial, sans-serif;
+        font-size: small;
+    }
+    .div_ul {
+        margin: 0 auto;
+        width: 200px;
+        text-align: left;
+    }
+    .base-footer {
+        font-family: verdana, arial, sans-serif;
+        font-size: x-small;
+        border-top: 1px solid #888;
+        margin: 1em auto 0 auto;
+        padding: 1em;
+        text-align: center;
+    }
+    </style>
     <script type="text/javascript" src="/jquery-latest.js"></script>
     <script type="text/javascript" src="/jquery.tablesorter.js" ></script>
     <script type="text/javascript">
@@ -36,15 +67,23 @@
     </script>
 </head>
 <body>
-    <center><h1><%= title %></h1>
+    <div id="base-header">
+    </div>
+    <div class="div_top">
+        <% if session[:username] %>
+            Welcome, <%= session[:username] %>.&emsp;
+        <% end %>
+        <a href="/logout">Log Out</a>
+    </div>
+    <center><h1 align="center"><%= title %></h1>
     <form id="form1" action="/" method="POST">
-        <table style="text-align:center" width="80%" border="0" cellpadding="0" cellspacing="0">
+        <table style="text-align:left" width="80%" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td width="30%">
+                <td width="35%">
                     <label for="txt_id">Employee ID:</label>
                     <input type="text" name="txt_id" style="width:60%" value="<%= @emp_id %>" />
                 </td>
-                <td width="30%">
+                <td width="35%">
                     <label for="txt_nm">Employee Name:</label>
                     <input type="text" name="txt_nm" style="width:60%" value="<%= @emp_nm %>" />
                 </td>
@@ -64,10 +103,18 @@
     </form>
     <%= yield %>
     <p>
-    <div style="width:80%;">
-        <a href="/">Back to Index</a>
-        <p>
-        <a href="/csv">Import & Export CSV</a>  
+    <div class="div_ul">
+        <ul>
+            <li><a href="/">Back to Index</a></li>
+            <li><a href="/new">Add a new record</a></li>
+            <li><a href="/csv">Import & Export CSV</a></li>
+        </ul>
     </div>
-<body>
+    <p><p>
+        <div class="base-footer">
+            <a href="mailto:rfang@vmware.com">Contact Me</a>
+            <br />
+                &copy; 2013 VMware, Inc.
+        </div>
+</body>
 </html>
