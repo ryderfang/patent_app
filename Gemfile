@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "thin"
 gem "sinatra-reloader"
 gem 'pg'
 gem 'data_mapper'

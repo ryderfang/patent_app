@@ -9,6 +9,7 @@
     body {
         margin: 0px;
     }
+
     #base-header {
         margin: 0px;
         background-image: url(../img/source_header.gif);
@@ -16,17 +17,33 @@
         font-weight: bold;
         height: 1.2em;
     }
+
     .div_top {
         float: right;
         padding: 0.25em 1em;
         font-family: verdana, arial, sans-serif;
         font-size: small;
     }
+
     .div_ul {
+        width: 80px;
+    }
+    .div_ul ul {
+        list-style-position: inside;
+        list-style: square;
+        padding-left: 0px;
         margin: 0 auto;
-        width: 200px;
         text-align: left;
     }
+    .div_ul li {
+        width: 150px;
+    }
+
+    #form1 {
+        margin: 0 0px;
+        text-align: center;
+    }
+
     .base-footer {
         font-family: verdana, arial, sans-serif;
         font-size: x-small;
@@ -75,9 +92,10 @@
         <% end %>
         <a href="/logout">Log Out</a>
     </div>
-    <center><h1 align="center"><%= title %></h1>
+    <h1 align="center" style="clear: both"><%= title %></h1>
+    <center>
     <form id="form1" action="/" method="POST">
-        <table style="text-align:left" width="80%" border="0" cellpadding="0" cellspacing="0">
+        <table align="center" width="80%" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td width="35%">
                     <label for="txt_id">Employee ID:</label>
@@ -102,7 +120,7 @@
         </table>
     </form>
     <%= yield %>
-    <p>
+    <p>   
     <div class="div_ul">
         <ul>
             <li><a href="/">Back to Index</a></li>
@@ -110,7 +128,7 @@
             <li><a href="/csv">Import & Export CSV</a></li>
         </ul>
     </div>
-    <p><p>
+    <p>
         <div class="base-footer">
             <a href="mailto:rfang@vmware.com">Contact Me</a>
             <br />

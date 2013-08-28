@@ -13,7 +13,7 @@ require './csv.rb'
 
 require File.dirname(__FILE__) + '/lib/user_auth'
 
-set :server, 'webrick' 
+set :server, 'thin' 
 set :bind, '10.110.162.177'
 set :port, '4567'
 set :root, File.dirname(__FILE__)
@@ -129,9 +129,9 @@ post '/login' do
   user = params[:username]
   pass = params[:passwd]
 
-  if UserAuth.authenticate(user, pass)
-    session[:username] = user
-    flash[:username] = user
+  commonName = UserAuth.authenticate(user, pass)
+  if commonName
+    session[:username] = commonName.first
     redirect '/'
   else
     @lbl_pass = "Wrong Pass."
@@ -141,7 +141,6 @@ end
 
 get '/logout' do
   session[:username] = nil
-  flash[:username] = nil
   redirect '/login'
 end
 

@@ -22,17 +22,11 @@ class UserAuth
     conn.auth userName, pass
 
     if conn.bind
-      # filter = Net::LDAP::Filter.eq("uid", "nlai")
-      # conn.search(:base => BASE, :filter => filter) do |entry|
-      #   puts "DN: #{entry.dn}"
-      #   entry.each do |attr, values|
-      #     puts ".......#{attr}:"
-      #     values.each do |value|
-      #       puts "          #{value}"
-      #     end
-      #   end
-      # end
-      return true
+      filter = Net::LDAP::Filter.eq("uid", "#{user}")
+      conn.search(:base => BASE, :filter => filter) do |entry|
+        puts entry.cn
+        return entry.cn
+      end
     else
       return nil
     end
