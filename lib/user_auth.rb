@@ -24,7 +24,7 @@ class UserAuth
     if conn.bind
       filter = Net::LDAP::Filter.eq("uid", "#{user}")
       conn.search(:base => BASE, :filter => filter) do |entry|
-        puts entry.cn
+        #puts entry.cn
         return entry.cn
       end
     else

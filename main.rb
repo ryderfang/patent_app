@@ -18,8 +18,6 @@ set :bind, '10.110.162.177'
 set :port, '4567'
 set :root, File.dirname(__FILE__)
 
-ADMIN_PWD ||= 'Lovechina!'
-
 enable :sessions
 set :session_secret, "My session secret"
 
@@ -52,7 +50,7 @@ before '/*' do
       elsif session[:request_path] && session[:username]
         path = session[:request_path]
         session[:request_path] = nil
-        redirect path
+        redirect path unless path == '/favicon.ico'
       end
     end
 end
