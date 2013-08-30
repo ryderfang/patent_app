@@ -25,17 +25,17 @@
         font-size: small;
     }
 
-    .div_ul {
+    #div_ul {
         width: 80px;
     }
-    .div_ul ul {
+    #div_ul ul {
         list-style-position: inside;
         list-style: square;
         padding-left: 0px;
         margin: 0 auto;
         text-align: left;
     }
-    .div_ul li {
+    #div_ul li {
         width: 150px;
     }
 
@@ -44,7 +44,7 @@
         text-align: center;
     }
 
-    .base-footer {
+    #base-footer {
         font-family: verdana, arial, sans-serif;
         font-size: x-small;
         border-top: 1px solid #888;
@@ -77,6 +77,24 @@
         });
         */
 
+        var role = "<%= session[:admin]  %>";
+        //alert(role);
+        if (role != "admin")
+        {
+            $("#div_ul li a").attr("href", "#");
+            $("#tbl_data tbody tr a").attr("href", "#")
+
+            $("#div_ul li a").click(function(){
+                alert("Sorry, Permission denied.");
+            });
+
+            $("#tbl_data tbody tr a").click(function(){
+                alert("Sorry, Permission denied.");
+            });
+        }
+
+
+ 
         $("#tbl_data").tablesorter({
             sortList:[[0,0]], widgets: ['zebra']
         });
@@ -121,7 +139,7 @@
     </form>
     <%= yield %>
     <p>   
-    <div class="div_ul">
+    <div id="div_ul">
         <ul>
             <li><a href="/">Back to Index</a></li>
             <li><a href="/new">Add a new record</a></li>
@@ -129,7 +147,7 @@
         </ul>
     </div>
     <p>
-        <div class="base-footer">
+        <div id="base-footer">
             <a href="mailto:rfang@vmware.com">Contact Me</a>
             <br />
                 &copy; 2013 VMware, Inc.

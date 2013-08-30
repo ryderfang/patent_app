@@ -22,6 +22,7 @@ enable :sessions
 set :session_secret, "My session secret"
 
 #puts "This is process #{Process.pid}"
+set :patent_mem, ["rfang1", "slu", "hus", "ffeng", "ssqian"]
 
 DataMapper.setup(:default, 'postgres://rfang:postgres@localhost/test')
 
@@ -51,6 +52,12 @@ before '/*' do
         path = session[:request_path]
         session[:request_path] = nil
         redirect path unless path == '/favicon.ico'
+      end
+
+      unless url == "logout" || url == ""
+        if session[:admin] != "admin"
+          redirect '/'
+        end
       end
     end
 end
@@ -130,6 +137,12 @@ post '/login' do
   commonName = UserAuth.authenticate(user, pass)
   if commonName
     session[:username] = commonName.first
+    if settings.patent_mem.include? user
+      session[:admin] = "admin"
+    else
+      session[:admin] = "guest"
+    end 
+    #puts session[:admin]
     redirect '/'
   else
     @lbl_pass = "Wrong Pass."
@@ -139,6 +152,7 @@ end
 
 get '/logout' do
   session[:username] = nil
+  session[:admin] = nil
   redirect '/login'
 end
 

@@ -14,7 +14,7 @@
             <% if @patents.any? %>
             <% @patents.each do |patent| %>
             <tr>
-                <td><a href="/patent/<%= patent.employee_id %>"><%= patent.employee_id %></a></td>
+                <td><a id="a_link" href="/patent/<%= patent.employee_id %>"><%= patent.employee_id %></a></td>
                 <td><%= patent.employee_name %></td>
                 <td><%= patent.bu %></td>
                 <td><%= patent.total_us %></td>
