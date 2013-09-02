@@ -9,7 +9,7 @@ ARGV.each do |a|
 end
 =end
 
-DataMapper.setup(:default, 'postgres://rfang:1007-ecnu@localhost/test')
+DataMapper.setup(:default, 'postgres://rfang:postgres@localhost/test')
 
 # define model
 class Patent
