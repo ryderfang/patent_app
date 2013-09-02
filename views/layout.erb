@@ -63,33 +63,21 @@
     */
     
     $(function() {
-        //alert(<%= @emp_id %>);
-        
-        /*
-        $("#btn_us").click(function() {
-            $('#form2').attr("action", "/");
-            $('#form2').submit();
-        });
-        
-        $("#btn_oth").click(function() {
-            $('#form2').attr("action", "/index");
-            $('#form2').submit();
-        });
-        */
-
-        var role = "<%= session[:admin]  %>";
+        var role = "<%= session[:user_level]  %>";
         //alert(role);
         if (role != "admin")
         {
-            $("#div_ul li a").attr("href", "#");
+            $("#div_ul li .a_new").attr("href", "#");
             $("#tbl_data tbody tr a").attr("href", "#")
 
-            $("#div_ul li a").click(function(){
-                alert("Sorry, Permission denied.");
+            $("#div_ul li .a_new").click(function(){
+                alert("Sorry, Access denied.");
+                return false;
             });
 
             $("#tbl_data tbody tr a").click(function(){
-                alert("Sorry, Permission denied.");
+                alert("Sorry, Access denied.");
+                return false;
             });
         }
 
@@ -139,10 +127,10 @@
     </form>
     <%= yield %>
     <p>   
+        <a href="/">Back to Index</a>
     <div id="div_ul">
         <ul>
-            <li><a href="/">Back to Index</a></li>
-            <li><a href="/new">Add a new record</a></li>
+            <li><a class="a_new" href="/new">Add a new record</a></li>
             <li><a href="/csv">Import & Export CSV</a></li>
         </ul>
     </div>

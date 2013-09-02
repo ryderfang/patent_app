@@ -4,16 +4,29 @@
 <head>
     <title><%= title %></title>
     <meta charset="utf8">
-</head>
+    <script type="text/javascript" src="/jquery-latest.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		var role = "<%= session[:user_level]  %>";
+		if (role == "guest") {
+			$("#frm_upcsv>p>a").attr("href", "javascript:void(0)");
+			$("#frm_upcsv>p>a").attr("target", "_self");
+			$("#frm_upcsv>p>a").click(function(){
+                alert("Sorry, Access denied.");
+                return false;
+            });
+		}
+	});
+	</script>
 <body>
     <h1>Import & Export CSV</h1>
     <p>
-	    <form action="/upload" method="POST" enctype="multipart/form-data">
+	    <form id="frm_upcsv" action="/upload" method="POST" enctype="multipart/form-data">
 	    	<input type="submit" value="Import from CSV" />
 	        <input style="margin-left:20px;" type="file" name="file" />
 	    	<p>
 		        <label style="color:red; margin-right:20px;"><%= @lbl_csv %></label>
-		        <a href="web_log.txt" target="_blank">Import Logs</a>
+		        <a href="/logs" target="_blank">Import Logs</a>
 	    </form>
 
     <p>

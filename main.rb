@@ -22,7 +22,8 @@ enable :sessions
 set :session_secret, "My session secret"
 
 #puts "This is process #{Process.pid}"
-set :patent_mem, ["rfang1", "slu", "hus", "ffeng", "ssqian"]
+set :admin_grp, ["rfang1", "hus", "ffeng"] # r & w
+set :guest_grp, ["rfang2", "ssqian", "slu"] # w
 
 DataMapper.setup(:default, 'postgres://rfang:postgres@localhost/test')
 
@@ -43,6 +44,9 @@ DataMapper.finalize
 
 before '/*' do
     url = params[:splat].first
+    #puts session[:username]
+    #puts session[:user_level]
+    puts url
     unless url == "login"
       if !session[:username]
         session[:request_path] = request.path
@@ -54,10 +58,13 @@ before '/*' do
         redirect path unless path == '/favicon.ico'
       end
 
-      unless url == "logout" || url == ""
-        if session[:admin] != "admin"
-          redirect '/'
-        end
+      case session[:user_level]
+        when "guest"
+          redirect '/redir' unless ["redir", "logout", "", "csv", "download/out_file"].include? url
+        when "ban"
+          session[:username] = nil
+          session[:user_level] = nil
+          redirect '/login'
       end
     end
 end
@@ -137,13 +144,16 @@ post '/login' do
   commonName = UserAuth.authenticate(user, pass)
   if commonName
     session[:username] = commonName.first
-    if settings.patent_mem.include? user
-      session[:admin] = "admin"
-    else
-      session[:admin] = "guest"
-    end 
-    #puts session[:admin]
-    redirect '/'
+    session[:user_level] = "ban"
+    session[:user_level] = "guest" if settings.guest_grp.include? user
+    session[:user_level] = "admin" if settings.admin_grp.include? user
+
+    case session[:user_level]
+      when "admin", "guest"
+        redirect '/'
+      else
+        return erb(:login, :layout => false)
+    end
   else
     @lbl_pass = "Wrong Pass."
     return erb(:login, :layout => false)
@@ -152,8 +162,16 @@ end
 
 get '/logout' do
   session[:username] = nil
-  session[:admin] = nil
+  session[:user_level] = nil
   redirect '/login'
+end
+
+get '/logs' do
+  erb :log, :layout => false
+end
+
+get '/redir' do
+  erb :jump, :layout => false
 end
 
 get '/ip' do

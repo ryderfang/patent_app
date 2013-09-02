@@ -6,6 +6,5 @@ employee_id,employee_name,bu,total_us,total_other
 005,Emma,SAS,15,33
 006,Frank,Platform,7,1
 007,George,Platform,3,9
-008,Helen,Product Engineering,1,8
-009,Iris,SAS,10,4
-010,Jack,NSBU,1,7
+008,Helen,Platform,9,20
+009,Iris,SAS,11,4

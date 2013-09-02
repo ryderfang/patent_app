@@ -1,0 +1,5 @@
+<% File.open("./download/web_log.txt", "rb") do |file| %>
+    <% while line = file.gets %>
+      <%= line %><br />
+    <% end %>
+<% end %>

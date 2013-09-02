@@ -1,17 +1,8 @@
 # csv.rb
 # dealing with csv import & export
 post '/download/:filename' do |filename|
-=begin
-  CSV.foreach("./download/#{filename}.csv", :headers => true) do |row|
-    print "Name: #{row['employee_id']} "
-    print "Language: #{row['employee_name']} "
-    print "URL: #{row['total_us']} "
-    print "Total Number of Forks: #{row['total_others']}"
-    puts
-  end
-=end
-
   @patents = Patent.all
+
   CSV.open("./download/#{filename}.csv", "wb", :headers => true) do |csv|
     csv << ["employee_id", "employee_name", "bu", "total_us", "total_other"]
     @patents.each do |patent|
@@ -24,17 +15,7 @@ post '/download/:filename' do |filename|
 end
 
 post '/upload' do
-=begin
-  unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
-    return erb(:upload)
-  end
-  while blk = tmpfile.read(65536)
-    File.open("public/#{name}", "wb") { |f| f.write(blk) }
-  end
-  'success'
-=end
-
-  im_log = File.open("./public/web_log.txt", "wb")
+  im_log = File.open("./download/web_log.txt", "wb")
 
   unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
     @lbl_csv = "File not exist."

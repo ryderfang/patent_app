@@ -1,0 +1,32 @@
+<% title="Patent Historical Data" %>
+<!doctype html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf8">
+    <script type="text/javascript" src="/jquery-latest.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		function jump(count) {
+            window.setTimeout(function(){  
+                count--;  
+                if(count > 0) {  
+                    $("#num").html(count);
+                    jump(count);  
+                } else {
+                    location.href="/";
+                }  
+            }, 1000);
+        }
+        jump(3);
+	});
+	</script>
+</head>
+<body>
+	<span style="color:red">Sorry, Access Denied.</span><br/>
+    You'll be redirected after <span id="num">3</span> seconds.
+    <p>
+        You can also <a href="/">Back to Index</a>  manually.
+    </p>
+</body>  
+</html>

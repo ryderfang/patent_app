@@ -1,2 +1,4 @@
-employee_id,employee_name,bu,total_us
-010,Jack,NSBU,2,7
+employee_id,employee_name,bu,total_us,total_other
+001,Alan,EUC,23a,7
+008,Helen,Platform,7,6
+009,Helen,TEST,11,3
