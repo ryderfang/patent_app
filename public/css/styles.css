@@ -5,6 +5,7 @@ table.tablesorter {
 	margin:10px 0pt 15px;
 	font-size: 11pt;
 	width: 80%;
+	table-layout: fixed;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	color: #FFFFFF;
@@ -25,7 +26,7 @@ table.tablesorter tbody td {
 	background-color: #FFF;
 	vertical-align: top;
 }
-table.tablesorter tbody tr.odd td {
+table.tablesorter tbody tr:hover td {
 	background-color:#F0F0F6;
 }
 table.tablesorter thead tr .headerSortUp {

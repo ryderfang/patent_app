@@ -22,8 +22,10 @@ enable :sessions
 set :session_secret, "My session secret"
 
 #puts "This is process #{Process.pid}"
-set :admin_grp, ["rfang1", "hus", "ffeng"] # r & w
-set :guest_grp, ["rfang2", "ssqian", "slu"] # w
+set :admin_grp, ["ffeng", "slu", "hus", "chenh", "aren", "yisuih" \
+  "lbai", "bowang", "wshao", "yzhao", "tzhou", "haoh", "shenj", "cdan" \
+  "jying", "rfang"] # patent_committee
+set :guest_grp, ["ssqian", "linali", "vzheng", "rfang", "bqiao"] # patent_group
 
 DataMapper.setup(:default, 'postgres://rfang:postgres@localhost/test')
 

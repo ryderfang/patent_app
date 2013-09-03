@@ -5,68 +5,15 @@
     <title><%= title %></title>
     <meta charset="utf8">
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
-    <style type="text/css">
-    body {
-        margin: 0px;
-    }
-
-    #base-header {
-        margin: 0px;
-        background-image: url(../img/source_header.gif);
-        color: white;
-        font-weight: bold;
-        height: 1.2em;
-    }
-
-    .div_top {
-        float: right;
-        padding: 0.25em 1em;
-        font-family: verdana, arial, sans-serif;
-        font-size: small;
-    }
-
-    #div_ul {
-        width: 80px;
-    }
-    #div_ul ul {
-        list-style-position: inside;
-        list-style: square;
-        padding-left: 0px;
-        margin: 0 auto;
-        text-align: left;
-    }
-    #div_ul li {
-        width: 150px;
-    }
-
-    #form1 {
-        margin: 0 0px;
-        text-align: center;
-    }
-
-    #base-footer {
-        font-family: verdana, arial, sans-serif;
-        font-size: x-small;
-        border-top: 1px solid #888;
-        margin: 1em auto 0 auto;
-        padding: 1em;
-        text-align: center;
-    }
-    </style>
-    <script type="text/javascript" src="/jquery-latest.js"></script>
-    <script type="text/javascript" src="/jquery.tablesorter.js" ></script>
+    <link rel="stylesheet" href="/css/layout.css" type="text/css" />
+    <script type="text/javascript" src="/js/jquery-latest.js"></script>
+    <script type="text/javascript" src="/js/jquery.tablesorter.js" ></script>
+    <script type="text/javascript" src="/js/layout.js" ></script>
     <script type="text/javascript">
-    /*
-        window.onload = function() {
-            alert( "welcome" );
-        }
-    */
-    
     $(function() {
-        var role = "<%= session[:user_level]  %>";
-        //alert(role);
-        if (role != "admin")
-        {
+        var role = <%= session[:user_level]  %>;
+        alert(role);
+        if (role != "admin") {
             $("#div_ul li .a_new").attr("href", "#");
             $("#tbl_data tbody tr a").attr("href", "#")
 
@@ -80,12 +27,6 @@
                 return false;
             });
         }
-
-
- 
-        $("#tbl_data").tablesorter({
-            sortList:[[0,0]], widgets: ['zebra']
-        });
     });
     </script>
 </head>
@@ -114,7 +55,7 @@
                 <td width="20%">
                     <label for="sel_bu">BU:</label>
                     <select name="sel_bu" style="width:80%">
-                    <% ["", "EUC", "NSBU", "Platform", "Product Engineering", "SAS"].each do |bu| %>
+                    <% ["", "EUC", "MBU", "NSBU", "Platform", "Product Engineering", "SAS"].each do |bu| %>
                         <option <%= 'selected="selected"' if bu == @sel_bu%> value="<%= bu %>"><%= bu %></option>
                     <% end %>
                     </select>
@@ -126,6 +67,14 @@
         </table>
     </form>
     <%= yield %>
+    <p>
+        <div id="pagination">
+            <a href="#">First</a>
+            <a href="#">«</a>
+            <a href="#">»</a>
+            <a href="#">Last</a>
+            <a href="#">All</a>
+        </div>
     <p>   
         <a href="/">Back to Index</a>
     <div id="div_ul">

@@ -7,7 +7,7 @@
 <p>
     <label for="sel_bu">BU:</label>
     <select id="sel_bu" name="patent[bu]">
-        <% ["EUC", "NSBU", "Platform", "Product Engineering", "SAS"].each do |bu| %>
+        <% ["EUC", "MBU", "NSBU", "Platform", "Product Engineering", "SAS"].each do |bu| %>
             <option <%= 'selected="selected"' if bu == @patent.bu %> value="<%= bu %>"><%= bu %></option>
         <% end %>
     </select>

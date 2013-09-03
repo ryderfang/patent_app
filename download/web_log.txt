@@ -1,3 +1,2 @@
-employee_id:001, employee_name:Alan, bu:EUC, total_us:23a[Not Integer!], Failed.
-employee_id:008, employee_name:Helen, bu:Platform, total_us:7, total_others:6, Success!
-employee_id:009, employee_name:Helen, bu:TEST[Incorrect BU!], Failed.
+employee_id:010, employee_name:Jack, bu:NSBU, total_us:2, total_others:9, Success!
+employee_id:011, employee_name:Kate, bu:Bu[Incorrect BU!], Failed.
