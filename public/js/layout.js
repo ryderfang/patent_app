@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("#tbl_data").tablesorter({
-        sortList:[[0,0]], widthFixed: true, widgets: ['zebra']
+        sortList:[[0,0]], widgets: ['zebra']
     });
 
     function show_page() {
@@ -18,9 +18,17 @@ $(document).ready(function(){
 
         $("#tbl_data tbody tr").hide();
 
+        var tag = true;
         $("#tbl_data tbody tr").each(function(i) {
             if (i >= begin && i < end) {
                 $(this).show();
+                if (tag) {
+                    $(this).removeClass().addClass("odd");
+                }
+                else {
+                    $(this).removeClass().addClass("even");
+                }
+                tag = !tag;
             }
         });
     }
@@ -30,6 +38,7 @@ $(document).ready(function(){
     var direct = 0;
     var length = $("#tbl_data tbody tr").length;
     var page;
+    var all = false;
 
     page = (length % pageSize) == 0 ? (length / pageSize)
         : Math.floor(length / pageSize) + 1;
@@ -57,14 +66,24 @@ $(document).ready(function(){
                     show_page();
                     break;
                 case 3:
+                    currentPage = page;
                     direct = 0;
                     show_page();
                     break;
                 case 4:
                     currentPage = 1;
                     direct = 0;
-                    pageSize = length;
-                    page = 1;
+                    if (!all) {
+                        pageSize = length;
+                        page = 1;
+                        all = !all;
+                    }
+                    else {
+                        pageSize = 6;
+                        page = (length % pageSize) == 0 ? (length / pageSize)
+                            : Math.floor(length / pageSize) + 1;
+                        all = !all;
+                    }
                     show_page();
                     break;
             }

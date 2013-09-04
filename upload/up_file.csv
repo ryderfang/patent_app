@@ -1,3 +1,6 @@
-employee_id,employee_name,bu,total_us,total_others
-010,Jack,NSBU,2,9
-011,Kate,Bu,10,11
+employee_id,employee_name,bu,total_us,total_other
+008,Helen,EUC,3,1
+009,Iril,Product Engineering,6,2
+010,Jack,SAS,32,44
+011,Kate,Platform,2,22
+012,Leo,Product,114,2

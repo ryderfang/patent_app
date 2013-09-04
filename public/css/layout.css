@@ -21,7 +21,8 @@ body {
 }
 
 #div_ul {
-    width: 80px;
+    width: 120px;
+    font-size: small;
 }
 #div_ul ul {
     list-style-position: inside;
@@ -31,7 +32,8 @@ body {
     text-align: left;
 }
 #div_ul li {
-    width: 150px;
+    width: 200px;
+    margin-top: 0.2em;
 }
 
 #form1 {
@@ -48,8 +50,11 @@ body {
     text-align: center;
 }
 
-#form2 {
+#div2 {
+    margin: 0 0px;
     min-height: 210px;
+    height: auto !important;
+    height: 210px;
 }
 
 #pagination {
@@ -62,7 +67,6 @@ body {
 #pagination a {
     color: #00FF0C;
     background-color: #000;
-    /*background-color: #F0F0F6;*/
     display: inline-block;
     margin-right: 10px;
     padding:  4px 10px;
