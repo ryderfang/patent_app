@@ -1,8 +1,12 @@
 employee_id,employee_name,bu,total_us,total_other
-001,Alan,EUC,0,3
-002,Bob,Product Engineering,1,10
-003,Carrio,SAS,10,0
-004,Daniel,Platform,133,22
-005,Alan,Product Engineering,114,2
-006,Frank,EUC,13,22
-007,Green,EUC,1,1
+001,Alan,EUC,21,7
+002,Bob,NSBU,21,7
+003,Carrio,Platform,11,0
+004,Daniel,Product Engineering,22,11
+005,Emma,SAS,15,33
+006,Frank,Platform,7,1
+007,George,Platform,3,9
+008,Helen,Platform,9,20
+009,Iris,SAS,11,4
+010,Jack,NSBU,2,9
+011,Kate,NSBU,2,9

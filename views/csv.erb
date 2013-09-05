@@ -15,6 +15,16 @@
                 alert("Sorry, Access denied.");
                 return false;
             });
+
+            $("#btn_import").click(function() {
+            	alert("Sorry, Access denied.");
+        	});
+		}
+		else
+		{
+			$("#btn_import").click(function() {
+            	$('#frm_upcsv').submit();
+        	});
 		}
 	});
 	</script>
@@ -22,7 +32,7 @@
     <h1>Import & Export CSV</h1>
     <p>
 	    <form id="frm_upcsv" action="/upload" method="POST" enctype="multipart/form-data">
-	    	<input type="submit" value="Import from CSV" />
+	    	<input id="btn_import" type="button" value="Import from CSV" />
 	        <input style="margin-left:20px;" type="file" name="file" />
 	    	<p>
 		        <label style="color:red; margin-right:20px;"><%= @lbl_csv %></label>

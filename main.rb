@@ -14,8 +14,7 @@ require './csv.rb'
 require File.dirname(__FILE__) + '/lib/user_auth'
 
 set :server, 'thin' 
-#set :bind, '10.110.162.177'
-set :bind, '202.120.87.195'
+set :bind, '10.110.162.177'
 set :port, '4567'
 set :root, File.dirname(__FILE__)
 
@@ -25,7 +24,7 @@ set :session_secret, "My session secret"
 #puts "This is process #{Process.pid}"
 set :admin_grp, ["ffeng", "slu", "hus", "chenh", "aren", "yisuih" \
   "lbai", "bowang", "wshao", "yzhao", "tzhou", "haoh", "shenj", "cdan" \
-  "jying", "rfang"] # patent_committee
+  "jying"] # patent_committee
 set :guest_grp, ["ssqian", "linali", "vzheng", "rfang", "bqiao"] # patent_group
 
 DataMapper.setup(:default, 'postgres://rfang:postgres@localhost/test')
@@ -45,31 +44,32 @@ end
 
 DataMapper.finalize
 
-# before '/*' do
-#     url = params[:splat].first
+before '/*' do
+    url = params[:splat].first
+    #puts session[:username]
+    #puts session[:user_level]
+    #puts url
+    unless url == "login"
+      if !session[:username]
+        session[:request_path] = request.path
+        #flash[:error] = "You are required to log in before you can proceed"
+        redirect '/login'
+      elsif session[:request_path] && session[:username]
+        path = session[:request_path]
+        session[:request_path] = nil
+        redirect path unless path == '/favicon.ico'
+      end
 
-#     #puts url
-#     unless url == "login"
-#       if !session[:username]
-#         session[:request_path] = request.path
-#         #flash[:error] = "You are required to log in before you can proceed"
-#         redirect '/login'
-#       elsif session[:request_path] && session[:username]
-#         path = session[:request_path]
-#         session[:request_path] = nil
-#         redirect path unless path == '/favicon.ico'
-#       end
-
-#       case session[:user_level]
-#         when "guest"
-#           redirect '/redir' unless ["redir", "logout", "", "csv", "download/out_file"].include? url
-#         when "ban"
-#           session[:username] = nil
-#           session[:user_level] = nil
-#           redirect '/login'
-#       end
-#     end
-# end
+      case session[:user_level]
+        when "guest"
+          redirect '/redir' unless ["redir", "logout", "", "csv", "download/out_file"].include? url
+        when "ban"
+          session[:username] = nil
+          session[:user_level] = nil
+          redirect '/login'
+      end
+    end
+end
 
 get '/' do
   @patents = Patent.all

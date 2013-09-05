@@ -11,8 +11,8 @@
     <script type="text/javascript" src="/js/layout.js" ></script>
     <script type="text/javascript">
     $(function() {
-        var role = <%= session[:user_level]  %>;
-        alert(role);
+        var role = "<%= session[:user_level]  %>";
+        //alert(role);
         if (role != "admin") {
             $("#div_ul li .a_new").attr("href", "#");
             $("#tbl_data tbody tr a").attr("href", "#")
@@ -75,7 +75,7 @@
             <a href="#">Last</a>
             <a href="#">All</a>
         </div>
-    <p>   
+    <p style="margin: 0px;">   
         <a href="/">Back to Index</a>
     <div id="div_ul">
         <ul>
