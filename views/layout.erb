@@ -18,12 +18,12 @@
             $("#tbl_data tbody tr a").attr("href", "#")
 
             $("#div_ul li .a_new").click(function(){
-                alert("Sorry, Access denied.");
+                alert("Sorry, you don't have the permission to add a record.");
                 return false;
             });
 
             $("#tbl_data tbody tr a").click(function(){
-                alert("Sorry, Access denied.");
+                alert("Sorry, you don't have the permission to edit the record.");
                 return false;
             });
         }
@@ -55,7 +55,7 @@
                 <td width="20%">
                     <label for="sel_bu">BU:</label>
                     <select name="sel_bu" style="width:80%">
-                    <% ["", "EUC", "MBU", "NSBU", "Platform", "Product Engineering", "SAS"].each do |bu| %>
+                    <% ["All", "EUC", "MBU", "NSBU", "Platform", "Product Engineering", "SAS"].each do |bu| %>
                         <option <%= 'selected="selected"' if bu == @sel_bu%> value="<%= bu %>"><%= bu %></option>
                     <% end %>
                     </select>
@@ -71,9 +71,16 @@
         <div id="pagination">
             <a href="#">First</a>
             <a href="#">«</a>
+            <input type="text" />
             <a href="#">»</a>
             <a href="#">Last</a>
             <a href="#">All</a>
+            <select>
+                <option selected="selected" value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+            </select>
         </div>
     <p style="margin: 0px;">   
         <a href="/">Back to Index</a>

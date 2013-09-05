@@ -1,7 +1,18 @@
+/*
+ * table sorter - jquery.tablesorter.js
+ * table pagination - jquery by rfang
+ * all under GPL licenses.
+ */
+
 $(document).ready(function(){
     $("#tbl_data").tablesorter({
         sortList:[[0,0]], widgets: ['zebra']
     });
+
+    function cal_page() {
+        page = (length % pageSize) == 0 ? (length / pageSize)
+            : Math.floor(length / pageSize) + 1;
+    }
 
     function show_page() {
         currentPage += direct;
@@ -10,8 +21,10 @@ $(document).ready(function(){
             return;
         }
 
+        $("#pagination input").val(currentPage + "/" + page);
+
         var begin = (currentPage - 1) * pageSize;
-        var end = begin + pageSize;
+        var end = Number(begin) + Number(pageSize);
         if (end > length) {
             end = length;
         }
@@ -33,23 +46,31 @@ $(document).ready(function(){
         });
     }
 
-    var pageSize = 6;
+    var pageSize = $("#pagination select option[selected]").val();
     var currentPage = 1;
     var direct = 0;
     var length = $("#tbl_data tbody tr").length;
     var page;
     var all = false;
 
-    page = (length % pageSize) == 0 ? (length / pageSize)
-        : Math.floor(length / pageSize) + 1;
+    cal_page();
 
     currentPage = 1;
     show_page();
 
+
+    $("#pagination select").change(function() {
+        var sz = $(this).children('option:selected').val();
+        pageSize = sz;
+        currentPage = 1;
+        direct = 0;
+
+        cal_page();
+        show_page();
+    });
+
     $("#pagination a").each(function(i) {
         $(this).click(function() {
-            //$("#tbl_data").tablesorter({sortList:[[0,0]]});
-
             switch (i)
             {
                 case 0:
@@ -79,9 +100,8 @@ $(document).ready(function(){
                         all = !all;
                     }
                     else {
-                        pageSize = 6;
-                        page = (length % pageSize) == 0 ? (length / pageSize)
-                            : Math.floor(length / pageSize) + 1;
+                        pageSize = $("#pagination select option[selected]").val();
+                        cal_page();
                         all = !all;
                     }
                     show_page();

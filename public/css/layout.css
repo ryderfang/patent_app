@@ -65,6 +65,28 @@ body {
     font: normal 11px helvetica, verdana, arial,  sans-serif;
 }
 
+#pagination input {
+    background-color: #000000;
+    color: #00FF0C;
+    padding: 0px;
+    margin: 0px 10px 0px 0px;
+    vertical-align: top;
+    text-align: center;
+    border-width: 0;
+    font-size: 11px;
+    width: 50px;
+    height: 20px;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#pagination select {
+    vertical-align: top;
+    height: 20px;
+}
+
 #pagination a {
     color: #00FF0C;
     background-color: #000;

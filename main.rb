@@ -84,6 +84,8 @@ post '/' do
   
   @sel_bu = params[:sel_bu]
 
+  @sel_bu = "" if @sel_bu == "All"
+
   cond = Hash.new
   cond[:employee_id] = @emp_id if @emp_id != ""
   cond[:employee_name] = @emp_nm if @emp_nm != ""
