@@ -7,10 +7,8 @@ body {
 
 #base-header {
     margin: 0px;
-    background-image: url(../img/source_header.gif);
-    color: white;
-    font-weight: bold;
-    height: 1.2em;
+    background: #fff url(../img/source_header.gif) repeat-x top;
+    height: 1.0em;
 }
 
 .div_top {
