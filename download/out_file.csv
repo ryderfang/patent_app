@@ -1,12 +1,40 @@
 employee_id,employee_name,bu,total_us,total_other
-001,Alan,EUC,21,7
-002,Bob,NSBU,21,7
-003,Carrio,Platform,11,0
-004,Daniel,Product Engineering,22,11
-005,Emma,SAS,15,33
-006,Frank,Platform,7,1
-007,George,Platform,3,9
-008,Helen,Platform,9,20
-009,Iris,SAS,11,4
-010,Jack,NSBU,2,9
-011,Kate,NSBU,2,9
+069744,Jake Li,SAS,2,0
+071171,Anfernee Gui,SAS,0,0
+071172,Song Andrew Liu,SAS,1,0
+086409,Leon Cui,NSBU,3,0
+088546,Jian Zhao,SAS,0,1
+092468,Jin Yu,EUC,1,0
+097555,Figo Feng,SAS,0,0
+107085,Ofox,EUC,1,0
+107086,Zhang Eric,EUC,0,2
+110708,Hayden Fowler,NSBU,1,0
+111432,Frank Guo ,SAS,0,2
+112531,Benniu Ji,SAS,0,0
+112637,Ning Ge,EUC,2,0
+309217,Jin Li,Product Engineering,0,1
+310713,Xinhui Li,SAS,9,0
+310827,Luo Bai,MBU,1,5
+311538,Yang Yang,SAS,0,0
+311555,Jinshan Zhang,EUC,0,1
+311744,Jeff Li,SAS,0,0
+313503,Yisui Hu,SAS,1,0
+313809,Hua Zhuang,EUC,0,1
+314084,Frank Pan,NSBU,0,2
+314931,Joshua Yang,Platform,0,3
+315301,Leo Xiao,EUC,1,0
+315737,William Gu,SAS,0,0
+317136,Sean Zhao,SAS,0,0
+318184,Sheng Lu,EUC,11,2
+318231,Jinxing Hu,EUC,0,1
+318398,Gang Si,EUC,0,1
+318399,Jumbo Xue,EUC,2,1
+318450,Xing Wei,EUC,2,0
+318595,Tracy Chi,EUC,8,0
+319120,Yonghui Rao,EUC,0,2
+320269,Shengbo Teng,EUC,0,1
+320650,Hao Bai,EUC,2,0
+321304,Khalil Zhang,SAS,0,1
+321930,Hongchang Lin,SAS,3,4
+322435,Tao Xie,SAS,1,0
+323315,Wei Hu,EUC,0,1

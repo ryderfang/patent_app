@@ -11,7 +11,7 @@ post '/download/:filename' do |filename|
     end
   end
 
-  send_file "./download/#{filename}.csv", :filename => filename + ".csv", :type => 'Application/octet-stream'
+  send_file "./download/#{filename}.csv", :filename => "PatentHistoricalData_v2.csv", :type => 'Application/octet-stream'
 end
 
 post '/upload' do
