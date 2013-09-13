@@ -64,7 +64,7 @@ post '/upload' do
     if row[2].nil?
       im_log.print("[Nil!], Failed.\n")
       next
-    elsif ['EUC', 'NSBU', 'Platform', 'Product Engineering', 'SAS'].include? (row[2])
+    elsif ['EUC', 'MBU', 'NSBU', 'Platform', 'Product Engineering', 'SAS'].include? (row[2])
       im_log.print("#{row[2]}, ")
     else
       im_log.print("#{row[2]}[Incorrect BU!], Failed.\n")
